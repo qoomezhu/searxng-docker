@@ -1,0 +1,5 @@
+# Use the official Koyeb Docker Compose image
+FROM koyeb/docker-compose
+
+# Copy your entire project into the /app directory inside the container
+COPY . /app
