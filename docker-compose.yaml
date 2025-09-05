@@ -1,11 +1,15 @@
+# 复制并使用这个完整、修正后的版本
 version: "3.7"
 
 services:
   caddy:
     container_name: caddy
     image: docker.io/library/caddy:2-alpine
-    network_mode: host
     restart: unless-stopped
+    ports:
+      - "80:80"  # <-- 修正 3: 暴露 Caddy 的端口
+    networks:
+      - searxng  # <-- 修正 2: 将 Caddy 加入 searxng 网络
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data:rw
@@ -40,12 +44,12 @@ services:
     restart: unless-stopped
     networks:
       - searxng
-    ports:
-      - "127.0.0.1:8080:8080"
+    # <-- 修正 4: 删除了这里的 "ports" 定义
     volumes:
       - ./searxng:/etc/searxng:rw
       - searxng-data:/var/cache/searxng:rw
     environment:
+      # 这一行是正确的，请保持！
       - SEARXNG_BASE_URL=https://slight-rozelle-personal-qoomezhu-44fcae91.koyeb.app/
     logging:
       driver: "json-file"
