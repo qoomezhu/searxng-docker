@@ -51,6 +51,7 @@ services:
     environment:
       # 这一行是正确的，请保持！
       - SEARXNG_BASE_URL=https://slight-rozelle-personal-qoomezhu-44fcae91.koyeb.app/
+      - UWSGI_WORKERS=2
     logging:
       driver: "json-file"
       options:
